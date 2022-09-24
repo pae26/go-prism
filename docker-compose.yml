@@ -1,0 +1,18 @@
+version: "3"
+services:
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "90:8080"
+    volumes:
+      - ./openapi.yml:/openapi.yml
+
+  swagger-server:
+    image: stoplisht/prism:3
+    container_name: "swagger-server"
+    ports:
+      - "91:4010"
+    command: mock -h 0.0.0.0 /openapi.yml
+    volumes:
+      - ./openapi.yml:/openapi.yml
