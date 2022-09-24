@@ -1,0 +1,52 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: prism sample
+  description: prism sample
+servers:
+  - url: http://localhost:4010
+    description: local mock server
+paths:
+  /yahoo-token:
+    post:
+      description: return token parameters
+      requestBody:
+        content:
+          "application/x-www-form-urlencoded":
+            schema:
+              type: object
+              required:
+                - grant_type
+                - redirect_uri
+                - code
+              properties:
+                grant_type:
+                  type: string
+                redirect_uri:
+                  type: string
+                code:
+                  type: string
+      responses:
+        "200":
+          description: success
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: SlAV32hkKG
+                  token_type:
+                    type: string
+                    example: Bearer
+                  refresh_token:
+                    type: string
+                    example: 8xLOxBtZp8
+                  expires_in:
+                    type: integer
+                    example: 3600 
+                  id_token:
+                    type: string
+                    example: eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlOWdkazcifQ.ewogImlzcyI6ICJodHRwOi8vc2VydmVyLmV4YW1wbGUuY29tIiwKICJzdWIiOiAiMjQ4Mjg5NzYxMDAxIiwKICJhdWQiOiAiczZCaGRSa3F0MyIsCiAibm9uY2UiOiAibi0wUzZfV3pBMk1qIiwKICJleHAiOiAxMzExMjgxOTcwLAogImlhdCI6IDEzMTEyODA5NzAKfQ.ggW8hZ1EuVLuxNuuIJKX_V8a_OMXzR0EHR9R6jgdqrOOF4daGU96Sr_P6qJp6IcmD3HP99Obi1PRs-cwh3LO-p146waJ8IhehcwL7F09JdijmBqkvPeB2T9CJNqeGpe-gccMg4vfKjkM8FcGvnzZUN4_KSP0aAp1tOJ1zZwgjxqGByKHiOtX7TpdQyHE5lcMiKPXfEIQILVq0pc_E2DzL7emopWoaoZTF_m0_N0YzFC6g6EJbOEoRoSK5hoDalrcvRYLSrQAZZKflyuVCyixEoV9GfNQC3_osjzw2PAithfubEEBLuVVk4XUVrWOLrLl0nx7RkKU8NXNHq-rvKMzqg
+
