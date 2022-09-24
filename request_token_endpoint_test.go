@@ -17,6 +17,7 @@ func TestRequestTokenEndpoint(t *testing.T) {
 	var tokenParams TokenParams
 	url := "http://localhost:4010/yahoo-token"
 	expectedAccessToken := "SlAV32hkKG"
+
 	t.Run("success test", func(t *testing.T) {
 		res, e := requestTokenEndpoint(url)
 		if e != nil {

@@ -12,18 +12,15 @@ func main() {
 	endpoint := "https://auth.login.yahoo.co.jp/yconnect/v2/token"
 	res, e := requestTokenEndpoint(endpoint)
 	if e != nil {
-		fmt.Println("aaa")
 		log.Fatalln(e)
 	}
 
 	body, e := io.ReadAll(res.Body)
 	if e != nil {
-		fmt.Println("bbb")
 		log.Fatalln(e)
 	}
 	e = json.Unmarshal([]byte(body), &tokenParams)
 	if e != nil {
-		fmt.Println("ccc")
 		log.Fatalln(e)
 	}
 	fmt.Printf("%+v\n", tokenParams)
