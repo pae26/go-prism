@@ -11,8 +11,8 @@ type TokenEndPointParams struct {
 }
 
 func main() {
-	url := "https://auth.login.yahoo.co.jp/yconnect/v2/token"
-	e := requestTokenEndpoint(url)
+	endpoint := "https://auth.login.yahoo.co.jp/yconnect/v2/token"
+	e := requestTokenEndpoint(endpoint)
 	if e != nil {
 		log.Fatalln(e)
 	}

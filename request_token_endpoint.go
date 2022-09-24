@@ -1,29 +1,24 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
-func requestTokenEndpoint(url string) error {
-	reqParams := &TokenEndPointParams{
-		grantType:   "authorization_code",
-		redirectURI: "https://example.com",
-		code:        "SxlOBeZQ",
-	}
+func requestTokenEndpoint(endpoint string) error {
+	values := url.Values{}
+	values.Add("grant_type", "authorization_code")
+	values.Add("redirect_uri", "https://example.com")
+	values.Add("code", "SxlOBeZQ")
 
-	reqParamsJSON, e := json.Marshal(reqParams)
+	req, e := http.NewRequest(http.MethodPost, endpoint, strings.NewReader(values.Encode()))
 	if e != nil {
 		return e
 	}
-
-	req, e := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(reqParamsJSON))
-	if e != nil {
-		return e
-	}
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Authorization", "Basic SlAV32hkKG")
 
 	client := &http.Client{}
@@ -31,8 +26,13 @@ func requestTokenEndpoint(url string) error {
 	if e != nil {
 		return e
 	}
+	defer res.Body.Close()
 
-	fmt.Printf("%+v", res.Body)
+	body, e := io.ReadAll(res.Body)
+	if e != nil {
+		return e
+	}
+	fmt.Printf("%+v\n", string(body))
 
 	return e
 }
