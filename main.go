@@ -1,19 +1,30 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"io"
 	"log"
 )
 
-type TokenEndPointParams struct {
-	grantType   string
-	redirectURI string
-	code        string
-}
-
 func main() {
+	var tokenParams TokenParams
 	endpoint := "https://auth.login.yahoo.co.jp/yconnect/v2/token"
-	e := requestTokenEndpoint(endpoint)
+	res, e := requestTokenEndpoint(endpoint)
 	if e != nil {
+		fmt.Println("aaa")
 		log.Fatalln(e)
 	}
+
+	body, e := io.ReadAll(res.Body)
+	if e != nil {
+		fmt.Println("bbb")
+		log.Fatalln(e)
+	}
+	e = json.Unmarshal([]byte(body), &tokenParams)
+	if e != nil {
+		fmt.Println("ccc")
+		log.Fatalln(e)
+	}
+	fmt.Printf("%+v\n", tokenParams)
 }
