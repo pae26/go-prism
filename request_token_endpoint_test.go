@@ -4,14 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"net/http"
 	"testing"
 )
-
-type OverrideRequest struct {
-	Transport http.RoundTripper
-	Overrides map[string]string
-}
 
 func TestRequestTokenEndpoint(t *testing.T) {
 	var tokenParams TokenParams
