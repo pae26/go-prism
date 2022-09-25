@@ -24,7 +24,7 @@ func TestRequestTokenEndpoint(t *testing.T) {
 		if e != nil {
 			t.Error(e)
 		}
-		if expectedAccessToken != "SlAV32hkKG" {
+		if tokenParams.AccessToken != "SlAV32hkKG" {
 			t.Errorf("expected access_token is %s, but got %s", expectedAccessToken, tokenParams.AccessToken)
 		}
 
