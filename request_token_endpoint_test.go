@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 	"testing"
 )
 
@@ -18,6 +19,10 @@ func TestRequestTokenEndpoint(t *testing.T) {
 			t.Error(e)
 		}
 		defer res.Body.Close()
+
+		if res.StatusCode != http.StatusOK {
+			t.Errorf("mock server return status code: %s", res.Status)
+		}
 
 		body, _ := io.ReadAll(res.Body)
 		e = json.Unmarshal(body, &tokenParams)
